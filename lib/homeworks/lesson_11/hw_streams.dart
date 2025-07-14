@@ -1,8 +1,16 @@
-Stream<int> countdownStream() =>
-    Stream.periodic(Duration(seconds: 1), (x) => x + 1).take(10);
+import 'dart:async';
 
-void main() async {
-  await for (var i in countdownStream()) {
-    print('$i...');
-  }
+void main() {
+final controller = StreamController<String>();
+
+  controller.stream.listen(
+    (data) => print('Data: $data'),
+    onDone: () => print('Стрім завершено'),
+  );
+
+  controller.add('Hello');
+  controller.add('World');
+  controller.add('Dart');
+
+  controller.close();
 }
