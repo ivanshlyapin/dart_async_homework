@@ -1,18 +1,8 @@
-Stream<int> numberStream = Stream.fromIterable([1, 2, 3, 4, 5]);
-
-Future<void> useAwaitFor() async {
-  await for (int number in numberStream) {
-    print('await for: $number');
-  }
-}
-
-void useListen() {
-  numberStream.listen((number) {
-    print('listen: $number');
-  });
-}
+Stream<int> countdownStream() =>
+    Stream.periodic(Duration(seconds: 1), (x) => x + 1).take(10);
 
 void main() async {
-  await useAwaitFor();
-  useListen();
+  await for (var i in countdownStream()) {
+    print('$i...');
+  }
 }
